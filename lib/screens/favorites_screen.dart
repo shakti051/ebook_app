@@ -19,7 +19,6 @@ class FavoritesScreen extends StatelessWidget {
             id: favoriteBooks[index].id,
             title: favoriteBooks[index].title,
             imageUrl: favoriteBooks[index].imageUrl,
-            affordability: favoriteBooks[index].affordability,
           );
         },
         itemCount: favoriteBooks.length,

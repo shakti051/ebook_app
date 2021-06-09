@@ -48,8 +48,6 @@ class _CategoryBooksScreenState extends State<CategoryBooksScreen> {
             id: displayedBooks[index].id,
             title: displayedBooks[index].title,
             imageUrl: displayedBooks[index].imageUrl,
-            affordability: displayedBooks[index].affordability,
-            
           );
         },
         itemCount: displayedBooks.length,

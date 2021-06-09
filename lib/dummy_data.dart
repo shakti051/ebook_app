@@ -32,7 +32,7 @@ const DUMMY_BOOKS =  [
       'c1',
       'c2',
     ],
-    title: 'Technology n computer',
+    title: 'Java',
     affordability: Affordability.Affordable,
    
     imageUrl:

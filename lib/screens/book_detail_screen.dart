@@ -7,7 +7,7 @@ class BookDetailScreen extends StatelessWidget {
   final Function isFavorite;
 
   BookDetailScreen(this.toggleFavorite, this.isFavorite);
-
+  
   Widget buildSectionTitle(BuildContext context, String text) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
@@ -92,8 +92,8 @@ class BookDetailScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(
-          isFavorite(bookId) ? Icons.favorite : Icons.favorite_border,
-          color: isFavorite(bookId) ? Colors.red : Colors.grey,
+          isFavorite(bookId) ? Icons.star : Icons.star_border,
+          color: isFavorite(bookId) ? Colors.blueAccent : Colors.grey,
         ),
         onPressed: () => toggleFavorite(bookId),
       ),

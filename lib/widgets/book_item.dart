@@ -6,31 +6,15 @@ class BookItem extends StatelessWidget {
   final String id;
   final String title;
   final String imageUrl;
-  final Affordability affordability;
+
 
 
   BookItem(
       {@required this.id,
       @required this.title,
       @required this.imageUrl,
-      @required this.affordability,
       });
 
-  String get affordabilityText {
-    switch (affordability) {
-      case Affordability.Affordable:
-        return 'Affordable';
-        break;
-      case Affordability.Pricey:
-        return 'Pricey';
-        break;
-      case Affordability. Expensive:
-        return 'Expensive';
-        break;
-      default:
-        return 'Unknown';
-    }
-  }
 
   void selectBook(context) {
     Navigator.of(context)
@@ -103,33 +87,42 @@ class BookItem extends StatelessWidget {
                   Row(
                     children: <Widget>[
                       Icon(
-                        Icons.read_more
+                        Icons.favorite,color: Colors.red,
                       ),
                       SizedBox(
                         width: 6,
                       ),
-      
+                        Text("14",style: TextStyle(fontWeight: FontWeight.bold)),
+                      SizedBox(
+                        width: 2,
+                      ),
+                      Text("Likes"),
                     ],
                   ),
                   Row(
                     children: <Widget>[
                       Icon(
-                        Icons.work,
+                        Icons.comment
                       ),
                       SizedBox(
                         width: 6,
                       ),
+                      Text("21",style: TextStyle(fontWeight: FontWeight.bold)),
+                      SizedBox(
+                        width: 2,
+                      ),
+                      Text("Comments"),
                     ],
                   ),
                   Row(
                     children: <Widget>[
                       Icon(
-                        Icons.attach_money,
+                        Icons.share,
                       ),
                       SizedBox(
                         width: 6,
                       ),
-                      Text(affordabilityText),
+                      Text("Share"),
                     ],
                   ),
                 ],
