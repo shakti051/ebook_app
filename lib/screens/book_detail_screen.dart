@@ -7,87 +7,195 @@ class BookDetailScreen extends StatelessWidget {
   final Function isFavorite;
 
   BookDetailScreen(this.toggleFavorite, this.isFavorite);
-  
-  Widget buildSectionTitle(BuildContext context, String text) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      child: Text(
-        text,
-        style: Theme.of(context).textTheme.title,
-      ),
-    );
-  }
-
-  Widget buildContainer(Widget child) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: Colors.grey),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      margin: EdgeInsets.all(10),
-      padding: EdgeInsets.all(10),
-      height: 150,
-      width: 300,
-      child: child,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final bookId = ModalRoute.of(context).settings.arguments as String;
     final selectedBook = DUMMY_BOOKS.firstWhere((book) => book.id == bookId);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('${selectedBook.title}'),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(200),
+        child: AppBar(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          flexibleSpace: Container(
+            height: 600,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                image: DecorationImage(
+                    image: NetworkImage(selectedBook.imageUrl,), fit: BoxFit.cover)),
+          ),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.more_vert,
+                color: Colors.white,
+              ),
+              onPressed: () {},
+            )
+          ],
+        ),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Container(
-              height: 300,
-              width: double.infinity,
-              child: Image.network(
-                selectedBook.imageUrl,
-                fit: BoxFit.cover,
-              ),
-            ),
-            buildSectionTitle(context, 'About'),
-            buildContainer(
-              ListView.builder(
-                itemBuilder: (ctx, index) => Card(
-                  color: Theme.of(context).accentColor,
-                  child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: 5,
-                        horizontal: 10,
-                      ),
-                      child: Text(selectedBook.about[index])),
-                ),
-                itemCount: selectedBook.about.length,
-              ),
-            ),
-            buildSectionTitle(context, 'Chapters'),
-            buildContainer(
-              ListView.builder(
-                itemBuilder: (ctx, index) => Column(
-                  children: [
-                    ListTile(
-                      leading: CircleAvatar(
-                        child: Text('# ${(index + 1)}'),
-                      ),
-                      title: Text(
-                        selectedBook.chapters[index],
+        child: Padding(
+          padding: EdgeInsets.all(20),
+            child: Column(
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    selectedBook.title,
+                    style: TextStyle(
+                        color: Colors.black87,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  OutlineButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    borderSide:
+                        BorderSide(width: 3, color: Colors.blue.shade300),
+                    child: Text(
+                      "View All",
+                      style: TextStyle(
+                        color: Colors.blue.shade300,
                       ),
                     ),
-                    Divider()
+                    onPressed: () {},
+                  )
+                ],
+              ),
+              Text("Author name",
+                  style: TextStyle(
+                    color: Colors.black54,
+                  )),
+              SizedBox(
+                height: 5,
+              ),
+              Row(
+                children: <Widget>[
+                  Icon(Icons.star, color: Colors.orange.shade700, size: 20),
+                  Icon(Icons.star, color: Colors.orange.shade700, size: 20),
+                  Icon(Icons.star, color: Colors.orange.shade700, size: 20),
+                  Icon(Icons.star, color: Colors.orange.shade700, size: 20),
+                  Icon(Icons.star, color: Colors.grey, size: 20),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    "4.0",
+                    style: TextStyle(
+                        color: Colors.orange.shade700,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15),
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    "(2460)",
+                    style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Divider(
+                thickness: 1.5,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 5),
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.favorite,
+                      color: Colors.red,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "22",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    ),
+                    Text(
+                      " Likes",
+                      style: TextStyle(fontSize: 15, color: Colors.black54),
+                    ),
+                    SizedBox(
+                      width: 30,
+                    ),
+                    Icon(Icons.message),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "14",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    ),
+                    Text(" Comments",
+                        style: TextStyle(fontSize: 15, color: Colors.black54)),
+                    SizedBox(
+                      width: 30,
+                    ),
+                    Icon(Icons.share),
+                    Text("  Share",
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.black54,
+                        ))
                   ],
                 ),
-                itemCount: selectedBook.chapters.length,
               ),
-            ),
-          ],
+              Divider(
+                thickness: 1.5,
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                "About the book",
+                style: TextStyle(
+                    color: Colors.black87,
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+             Text(
+                "Lorem ipsum dolor sit amet, ea sed quis utinam invidunt, nec no tantas aeterno, at quot insolens mea. Dicta menandri per te, vim ad summo antiopam imperdiet, eu nostro repudiare cum. Ex aliquando eloquentiam quo, at mea quem phaedrum convenire. Eu vel legendos assentior repudiandae, vix te case accumsan suscipit.Tale etiam indoctum vel ei. Cu nam velit altera delectus. Graeci detraxit vix ad, an pri solum summo vivendo. Eu liber dolore intellegebat vis. Vis facilis suavitate instructior ut, et ullum periculis hendrerit vim. Te sonet albucius legendos mel, simul labores an vel.",
+                style: TextStyle(color: Colors.grey, height: 1.5),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  createButton(
+                      icon: Icon(
+                        Icons.book,
+                        color: Colors.white,
+                      ),
+                      color: Colors.blue,
+                      text: "READ NOW"),
+                  createButton(
+                    icon: Icon(Icons.shopping_basket, color: Colors.white),
+                    text: "PURCHASE",
+                    color: Colors.pink,
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -96,6 +204,23 @@ class BookDetailScreen extends StatelessWidget {
           color: isFavorite(bookId) ? Colors.blueAccent : Colors.grey,
         ),
         onPressed: () => toggleFavorite(bookId),
+      ),
+    );
+  }
+  
+  Widget createButton({icon, color, text}) {
+    return ButtonTheme(
+      minWidth: 160,
+      height: 45,
+      child: FlatButton.icon(
+        onPressed: () {},
+        icon: icon,
+        label: Text(
+          text,
+          style: TextStyle(color: Colors.white),
+        ),
+        color: color,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
     );
   }
